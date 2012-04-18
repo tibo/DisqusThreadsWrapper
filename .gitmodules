@@ -1,0 +1,6 @@
+[submodule "Externals/AFNetworking"]
+	path = Externals/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking/
+[submodule "Externals/JSONKit"]
+	path = Externals/JSONKit
+	url = https://github.com/johnezang/JSONKit
