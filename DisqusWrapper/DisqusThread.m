@@ -25,7 +25,7 @@
                       withSuccess:(void (^)(NSArray *feedItems))success
                    andFailure:(void (^)(NSError *error))failure
 {
-    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadLink,DSIQUS_FORUM,link,DISQUS_API_KEY];
+    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadLink,DISQUS_FORUM,link,DISQUS_API_KEY];
     
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     
@@ -55,7 +55,7 @@
                  withSuccess:(void (^)(NSArray *feedItems))success
                   andFailure:(void (^)(NSError *error))failure
 {
-    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
+    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadIdent,DISQUS_FORUM,ident,DISQUS_API_KEY];
     
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     
@@ -86,7 +86,7 @@
                    andFailure:(void (^)(NSError *error))failure
 {
     
-    NSString *urlString = [NSString stringWithFormat:GetDetailsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
+    NSString *urlString = [NSString stringWithFormat:GetDetailsForThreadIdent,DISQUS_FORUM,ident,DISQUS_API_KEY];
     
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     

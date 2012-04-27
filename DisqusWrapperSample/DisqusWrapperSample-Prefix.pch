@@ -15,6 +15,6 @@
 
 
 #define DISQUS_API_KEY @"yourapikey"
-#define DSIQUS_FORUM @"youridentifier"
+#define DISQUS_FORUM @"youridentifier"
 
 //http://disqus.com/api/3.0/threads/listPosts.json?forum=therudebaguette&thread%3Alink=http%3A%2F%2Fwww.rudebaguette.com%2F2012%2F04%2F13%2Fviadeo%2F&api_key=Azlte98zwsVJPbRFis506r6CRSmVyr5HwAMVmum0uTbxspgEYwGHVBKTEioFrlrr
