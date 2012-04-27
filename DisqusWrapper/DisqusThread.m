@@ -10,6 +10,7 @@
 #import "AFJSONRequestOperation.h"
 
 #define GetPostsForThreadLink @"http://disqus.com/api/3.0/threads/listPosts.json?forum=%@&thread%%3Alink=%@&api_key=%@&order=asc"
+#define GetPostsForThreadIdent @"http://disqus.com/api/3.0/threads/listPosts.json?forum=%@&thread%%3Aident=%@&api_key=%@&order=asc"
 
 @interface DisqusThread (Private)
 
@@ -24,6 +25,36 @@
                    andFailure:(void (^)(NSError *error))failure
 {
     NSString *urlString = [NSString stringWithFormat:GetPostsForThreadLink,DSIQUS_FORUM,link,DISQUS_API_KEY];
+    
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:req 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            
+                                                                                            NSMutableArray *postsArray = [[NSMutableArray alloc] init];
+                                                                                            
+                                                                                            [[JSON objectForKey:@"response"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                                                                
+                                                                                                DisqusThread *post = [[DisqusThread alloc] initWithJSONDictionary:obj];
+                                                                                                
+                                                                                                [postsArray addObject:post];
+                                                                                                
+                                                                                            }];
+                                                                                            success(postsArray);
+                                                                                            
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            failure(error);
+                                                                                        }];
+    
+    [operation start];
+}
+
++(void)getPostsForThreadIdent:(NSString *)ident 
+                 withSuccess:(void (^)(NSArray *feedItems))success
+                  andFailure:(void (^)(NSError *error))failure
+{
+    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadLink,DSIQUS_FORUM,ident,DISQUS_API_KEY];
     
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     
