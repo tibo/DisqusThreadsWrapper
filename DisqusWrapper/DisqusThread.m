@@ -11,7 +11,7 @@
 
 #define GetPostsForThreadLink @"http://disqus.com/api/3.0/threads/listPosts.json?forum=%@&thread%%3Alink=%@&api_key=%@&order=asc"
 #define GetPostsForThreadIdent @"http://disqus.com/api/3.0/threads/listPosts.json?forum=%@&thread%%3Aident=%@&api_key=%@&order=asc"
-#define GetDetailsForThreadIdent @"https://disqus.com/api/3.0/threads/details.json?forum=%@&thread%3Aident=%@&api_key=%@"
+#define GetDetailsForThreadIdent @"https://disqus.com/api/3.0/threads/details.json?forum=%@&thread%%3Aident=%@&api_key=%@"
 
 @interface DisqusThread (Private)
 
