@@ -55,28 +55,6 @@
                  withSuccess:(void (^)(NSArray *feedItems))success
                   andFailure:(void (^)(NSError *error))failure
 {
-    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
-    
-    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:req 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            
-                                                                                            NSNumber *threadID = [[JSON objectForKey:@"response"] objectForKey:@"id"];
-                                                                                            
-                                                                                            success(threadID);
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            failure(error);
-                                                                                        }];
-    
-    [operation start];
-}
-
-+(void)getThreadIDForThreadIdent:(NSString *)ident 
-                  withSuccess:(void (^)(NSNumber *threadID))success
-                   andFailure:(void (^)(NSError *error))failure
-{
     NSString *urlString = [NSString stringWithFormat:GetDetailsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
     
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
@@ -95,6 +73,29 @@
                                                                                             }];
                                                                                             success(postsArray);
                                                                                             
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            failure(error);
+                                                                                        }];
+    
+    [operation start];
+}
+
++(void)getThreadIDForThreadIdent:(NSString *)ident 
+                  withSuccess:(void (^)(NSNumber *threadID))success
+                   andFailure:(void (^)(NSError *error))failure
+{
+    
+    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
+    
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:req 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            
+                                                                                            NSNumber *threadID = [[JSON objectForKey:@"response"] objectForKey:@"id"];
+                                                                                            
+                                                                                            success(threadID);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             failure(error);
