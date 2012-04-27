@@ -19,6 +19,10 @@
                   withSuccess:(void (^)(NSArray *feedItems))success
                    andFailure:(void (^)(NSError *error))failure;
 
++(void)getPostsForThreadIdent:(NSString *)ident 
+                  withSuccess:(void (^)(NSArray *feedItems))success
+                   andFailure:(void (^)(NSError *error))failure;
+
 // atributs
 
 /*

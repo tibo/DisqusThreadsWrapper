@@ -11,6 +11,7 @@
 
 #define GetPostsForThreadLink @"http://disqus.com/api/3.0/threads/listPosts.json?forum=%@&thread%%3Alink=%@&api_key=%@&order=asc"
 #define GetPostsForThreadIdent @"http://disqus.com/api/3.0/threads/listPosts.json?forum=%@&thread%%3Aident=%@&api_key=%@&order=asc"
+#define GetDetailsForThreadIdent @"https://disqus.com/api/3.0/threads/details.json?forum=%@&thread%3Aident=%@&api_key=%@"
 
 @interface DisqusThread (Private)
 
@@ -61,6 +62,28 @@
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:req 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             
+                                                                                            NSNumber *threadID = [[JSON objectForKey:@"response"] objectForKey:@"id"];
+                                                                                            
+                                                                                            success(threadID)
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            failure(error);
+                                                                                        }];
+    
+    [operation start];
+}
+
++(void)getThreadIDForThreadIdent:(NSString *)ident 
+                  withSuccess:(void (^)(NSNumber *threadID))success
+                   andFailure:(void (^)(NSError *error))failure
+{
+    NSString *urlString = [NSString stringWithFormat:GetDetailsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
+    
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:req 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            
                                                                                             NSMutableArray *postsArray = [[NSMutableArray alloc] init];
                                                                                             
                                                                                             [[JSON objectForKey:@"response"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -79,6 +102,7 @@
     
     [operation start];
 }
+
 
 @synthesize identifier;
 @synthesize parentIdenfier;
