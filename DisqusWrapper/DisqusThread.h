@@ -55,6 +55,7 @@
  "userScore": 0
  */
 
+@property (retain, nonatomic) NSNumber *threadId;
 @property (retain, nonatomic) NSNumber *identifier;
 @property (retain, nonatomic) NSNumber *parentIdenfier;
 @property (retain, nonatomic) NSString *authorUsername;

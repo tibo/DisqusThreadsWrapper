@@ -88,6 +88,7 @@
 @synthesize authorAvatarURL;
 @synthesize rawMessage;
 @synthesize creationDate;
+@synthesize threadId;
 
 - (id)initWithJSONDictionary:(NSDictionary *)dictionary
 {
@@ -137,6 +138,12 @@
         if (obj && [obj isKindOfClass:[NSString class]]) {
             self.creationDate = [self dateFromISO8601:obj];
         }
+        
+        obj = [dictionary valueForKey:@"thread"];
+        if (obj && [obj isKindOfClass:[NSNumber class]]) {
+            self.threadId = obj;
+        }
+        
         
         
     }
