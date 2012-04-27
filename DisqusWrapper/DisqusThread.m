@@ -54,7 +54,7 @@
                  withSuccess:(void (^)(NSArray *feedItems))success
                   andFailure:(void (^)(NSError *error))failure
 {
-    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadLink,DSIQUS_FORUM,ident,DISQUS_API_KEY];
+    NSString *urlString = [NSString stringWithFormat:GetPostsForThreadIdent,DSIQUS_FORUM,ident,DISQUS_API_KEY];
     
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
     
